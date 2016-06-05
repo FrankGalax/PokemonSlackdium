@@ -11,16 +11,20 @@
   },
   "dependencies": {
     "ejs": "2.4.1",
-    "express": "4.13.3"
+    "express": "4.13.3",
+    "botkit": "*"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroku/node-js-getting-started"
+    "url": "https://github.com/FrankGalax/PokemonSlackdium"
   },
   "keywords": [
     "node",
     "heroku",
-    "express"
+    "express",
+    "botkit",
+    "slackbot",
+    "pokemon"
   ],
   "license": "MIT"
 }
