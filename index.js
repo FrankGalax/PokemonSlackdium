@@ -36,7 +36,7 @@
  -> http://howdy.ai/botkit
  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-var token = "xoxb-48324492166-lSakTV3SO6FRt58KCxfqIzjZ";
+var token = process.env.slackToken;
 
 var Botkit = require('botkit');
 var os = require('os');
