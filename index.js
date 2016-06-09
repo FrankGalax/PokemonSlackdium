@@ -14,9 +14,24 @@ var bot = controller.spawn({
 }).startRTM();
 
 controller.hears(['walk'], 'direct_message,direct_mention,mention', function(bot, message) {
-    var pokemon = dictUtils.randomChoice(pokedex.pokemons);
+    try {
+        var pokemon = dictUtils.randomChoice(pokedex.pokemons);
 
-    bot.reply(message, "A wild " + pokemon.name + " has appeared!");
+        var attachments = {
+            'text': 'A wild ' + pokemon.name + ' has appeared!',
+            'attachments': [
+                {
+                    'fallback': 'A wild ' + pokemon.name + ' has appeared!',
+                    'image_url': pokemon.imageUrl,
+                    'text': 'A wild ' + pokemon.name + ' has appeared!'
+                }
+            ]
+        };
+        bot.reply(message, attachments);
+    }
+    catch (ex) {
+        bot.reply(message, ex.message);
+    }
 });
 
 controller.hears(['uptime', 'identify yourself', 'who are you', 'what is your name'],
