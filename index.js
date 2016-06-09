@@ -14,9 +14,14 @@ var bot = controller.spawn({
 }).startRTM();
 
 controller.hears(['walk'], 'direct_message,direct_mention,mention', function(bot, message) {
-    var pokemon = arrayUtils.randomChoice(pokedex.pokemons);
+    try {
+        var pokemon = arrayUtils.randomChoice(pokedex.pokemons);
 
-    bot.reply(message, "A wild " + pokemon.name + " has appeared!");
+        bot.reply(message, "A wild " + pokemon.name + " has appeared!");
+    }
+    catch (ex) {
+        bot.reply(message, ex.message);
+    }
 });
 
 controller.hears(['uptime', 'identify yourself', 'who are you', 'what is your name'],
