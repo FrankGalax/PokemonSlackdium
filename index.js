@@ -17,16 +17,20 @@ controller.hears(['walk'], 'direct_message,direct_mention,mention', function(bot
     try {
         var pokemon = dictUtils.randomChoice(pokedex.pokemons);
 
-        var attachments = {
-            'text': 'A wild ' + pokemon.name + ' has appeared!',
-            'attachments': [
-                {
-                    'fallback': 'A wild ' + pokemon.name + ' has appeared!',
-                    'image_url': pokemon.imageUrl
-                }
-            ]
-        };
-        bot.reply(message, attachments);
+        bot.startConversation(message, function(err, convo) {
+
+            var attachments = {
+                'text': 'A wild ' + pokemon.name + ' has appeared!',
+                'attachments': [
+                    {
+                        'fallback': 'A wild ' + pokemon.name + ' has appeared!',
+                        'image_url': pokemon.imageUrl
+                    }
+                ]
+            };
+            convo.say(attachments);
+            convo.say("You can [throw] pokeballs or [run]");
+        });
     }
     catch (ex) {
         bot.reply(message, ex.message);
