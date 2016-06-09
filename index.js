@@ -34,7 +34,7 @@ controller.hears(['walk'], 'direct_message,direct_mention,mention', function(bot
             var throwPokeball = function(response, convo) {
                 var r = Math.random();
                 if (r < wildPokemon.catchRate) {
-                    pokemonCaught(response, convo);
+                    pokemonCaught(r, response, convo);
                 }
                 else {
                     convo.say(arrayUtils.randomChoice([
@@ -47,8 +47,8 @@ controller.hears(['walk'], 'direct_message,direct_mention,mention', function(bot
                 }
             };
 
-            var pokemonCaught = function (response, convo) {
-                convo.say("Gotcha! " + wildPokemon.name + " was caught!");
+            var pokemonCaught = function (r, response, convo) {
+                convo.say("Gotcha! " + wildPokemon.name + " was caught! " + r);
             };
 
             convo.ask('You can [throw] a pokeball or [run]',[
