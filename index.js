@@ -22,8 +22,7 @@ controller.hears(['walk'], 'direct_message,direct_mention,mention', function(bot
             'attachments': [
                 {
                     'fallback': 'A wild ' + pokemon.name + ' has appeared!',
-                    'image_url': pokemon.imageUrl,
-                    'text': 'A wild ' + pokemon.name + ' has appeared!'
+                    'image_url': pokemon.imageUrl
                 }
             ]
         };
