@@ -1,6 +1,7 @@
 var Botkit = require('botkit');
 var os = require('os');
 var pokedex = require('./model/pokedex.js');
+var arrayUtils = require('./Utility/arrayUtils.js');
 var dictUtils = require('./Utility/dictUtils.js');
 
 var token = process.env.slackToken;
@@ -15,21 +16,65 @@ var bot = controller.spawn({
 
 controller.hears(['walk'], 'direct_message,direct_mention,mention', function(bot, message) {
     try {
-        var pokemon = dictUtils.randomChoice(pokedex.pokemons);
+        var wildPokemon = dictUtils.randomChoice(pokedex.pokemons);
 
         bot.startConversation(message, function(err, convo) {
 
             var attachments = {
-                'text': 'A wild ' + pokemon.name + ' has appeared!',
+                'text': 'A wild ' + wildPokemon.name + ' has appeared!',
                 'attachments': [
                     {
-                        'fallback': 'A wild ' + pokemon.name + ' has appeared!',
+                        'fallback': 'A wild ' + wildPokemon.name + ' has appeared!',
                         'image_url': pokemon.imageUrl
                     }
                 ]
             };
             convo.say(attachments);
-            convo.say("You can [throw] pokeballs or [run]");
+
+            var throwPokeball = function(response, convo) {
+                var r = Math.random();
+                if (r < wildPokemon.catchRate) {
+                    pokemonCaught(response, convo);
+                }
+                else {
+                    convo.say(arrayUtils.randomChoice([
+                        "Oh no! The Pokémon broke free!",
+                        "Aww! It appeared to be caught!",
+                        "Aargh! Almost had it!",
+                        "Gah! It was so close, too!"
+                    ]));
+                    convo.repeat();
+                }
+            };
+
+            var pokemonCaught = function (response, convo) {
+                convo.say("Gotcha! " + wildPokemon.name + " was caught!");
+            };
+
+            convo.ask('You can [throw] a pokeball or [run]',[
+                {
+                    pattern: 'throw',
+                    callback: function(response,convo) {
+                        throwPokeball(response, convo);
+                        convo.next();
+                    }
+                },
+                {
+                    pattern: 'run',
+                    callback: function(response,convo) {
+                        convo.say('You ran away.');
+                        convo.next();
+
+                    }
+                },
+                {
+                    default: true,
+                    callback: function(response,convo) {
+                        convo.repeat();
+                        convo.next();
+                    }
+                }
+            ]);
         });
     }
     catch (ex) {

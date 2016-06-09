@@ -6,7 +6,8 @@ module.exports = {
         3: {
             id: 3,
             name: "Venusaur",
-            imageUrl: "http://cdn.bulbagarden.net/upload/thumb/a/ae/003Venusaur.png/250px-003Venusaur.png"
+            imageUrl: "http://cdn.bulbagarden.net/upload/thumb/a/ae/003Venusaur.png/250px-003Venusaur.png",
+            catchRate: 0.5
         }
     }
 };
