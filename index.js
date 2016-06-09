@@ -14,7 +14,7 @@ var bot = controller.spawn({
 }).startRTM();
 
 controller.hears(['walk'], 'direct_message,direct_mention,mention', function(bot, message) {
-    var pokemon = arrayUtils.randomChoice(pokedex.pokemons);
+    var pokemon = dictUtils.randomChoice(pokedex.pokemons);
 
     bot.reply(message, "A wild " + pokemon.name + " has appeared!");
 });
