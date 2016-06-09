@@ -45,10 +45,12 @@ controller.hears(['walk'], 'direct_message,direct_mention,mention', function(bot
                     ]));
                     convo.repeat();
                 }
+                convo.next();
             };
 
             var pokemonCaught = function (r, response, convo) {
                 convo.say("Gotcha! " + wildPokemon.name + " was caught! " + r);
+                convo.next();
             };
 
             convo.ask('You can [throw] a pokeball or [run]',[
