@@ -18,12 +18,11 @@ var getTeam = function(message) {
     var pokemons = [];
     controller.storage.users.get(message.user, function (err, userData) {
         if (userData) {
-            pokemons = userData;
-            /*for (var i = 1 ; i <= 6 ; ++i) {
+            for (var i = 1 ; i <= 6 ; ++i) {
                 var attr = "poke" + i;
                 if (userData[attr])
                     pokemons.push(pokedex.pokemons[userData[attr]]);
-            }*/
+            }
         }
     });
     return pokemons;
@@ -115,16 +114,31 @@ controller.hears(['walk'], 'direct_message,direct_mention,mention', function(bot
     }
 });
 
+controller.hears(['debug'], 'direct_message,direct_mention,mention', function(bot, message) {
+    try {
+        controller.storage.users.get(message.user, function (err, userData) {
+            if (userData) {
+                bot.reply(message, JSON.stringify(userData));
+            }
+            else {
+                bot.reply(message, "no data");
+            }
+        });
+    }
+    catch (ex) {
+        bot.reply(message, ex.message);
+    }
+});
+
 controller.hears(['show team'], 'direct_message,direct_mention,mention', function(bot, message) {
     try {
         var pokemons = getTeam(message);
-        bot.reply(message, JSON.stringify(pokemons));
-        /*if (pokemons.length == 0) {
+        if (pokemons.length == 0) {
             bot.reply(message, "no data");
         }
         else {
             bot.reply(message, JSON.stringify(pokemons));
-        }*/
+        }
     }
     catch (ex) {
         bot.reply(message, ex.message);
