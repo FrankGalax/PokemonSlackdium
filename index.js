@@ -61,7 +61,7 @@ controller.hears(['walk'], 'direct_message,direct_mention,mention', function(bot
             };
 
             var pokemonCaught = function (response, convo) {
-                addPokemonToTeam(wildPokemon);
+                addPokemonToTeam(message, wildPokemon);
                 convo.say("Gotcha! " + wildPokemon.name + " was caught!");
                 convo.next();
             };
