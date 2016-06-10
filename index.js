@@ -46,7 +46,7 @@ controller.hears(['walk'], 'direct_message,direct_mention,mention', function(bot
             var throwPokeball = function(response, convo) {
                 var r = Math.random();
                 if (r < wildPokemon.catchRate) {
-                    pokemonCaught(r, response, convo);
+                    pokemonCaught(response, convo);
                 }
                 else {
                     convo.say(arrayUtils.randomChoice([
