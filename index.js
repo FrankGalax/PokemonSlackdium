@@ -61,9 +61,15 @@ controller.hears(['walk'], 'direct_message,direct_mention,mention', function(bot
             };
 
             var pokemonCaught = function (response, convo) {
-                addPokemonToTeam(message, wildPokemon);
-                convo.say("Gotcha! " + wildPokemon.name + " was caught!");
-                convo.next();
+                try {
+                    addPokemonToTeam(message, wildPokemon);
+                    convo.say("Gotcha! " + wildPokemon.name + " was caught!");
+                    convo.next();
+                }
+                catch (ex) {
+                    convo.say(ex.message);
+                    convo.next();
+                }
             };
 
             convo.ask('You can [throw] a pokeball or [run]',[
