@@ -14,15 +14,9 @@ var bot = controller.spawn({
     token: token
 }).startRTM();
 
-var addPokemonToTeam = function(message, pokemon) {
-    controller.storage.users.save({id: message.user, poke1:pokemon.id}, function (err) {
-        bot.reply(message, err);
-    });
-};
-
 var getTeam = function(message) {
     controller.storage.users.get(message.user, function (err, userData) {
-        bot.reply(message, "ok");
+        bot.reply(message, "ok2");
     });
 };
 
@@ -62,7 +56,9 @@ controller.hears(['walk'], 'direct_message,direct_mention,mention', function(bot
 
             var pokemonCaught = function (response, convo) {
                 try {
-                    addPokemonToTeam(message, wildPokemon);
+                    controller.storage.users.save({id: message.user, poke1:pokemon.id}, function (err) {
+                        convo.say("ok1");
+                    });
                     convo.say("Gotcha! " + wildPokemon.name + " was caught!");
                     convo.next();
                 }
