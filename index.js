@@ -30,6 +30,7 @@ var getTeam = function(message) {
 
 controller.hears(['walk'], 'direct_message,direct_mention,mention', function(bot, message) {
     try {
+        var team = getTeam(message);
         var wildPokemon = dictUtils.randomChoice(pokedex.pokemons);
 
         bot.startConversation(message, function(err, convo) {
@@ -64,7 +65,11 @@ controller.hears(['walk'], 'direct_message,direct_mention,mention', function(bot
 
             var pokemonCaught = function (response, convo) {
                 try {
-                    controller.storage.users.save({id: message.user, poke1:wildPokemon.id}, function (err) {
+                    var addParams = {
+                        id:message.user
+                    };
+                    addParams["poke" + (team.length+1)] = wildPokemon.id;
+                    controller.storage.users.save(addParams, function (err) {
                         if (err) {
                             convo.say(err);
                         }
