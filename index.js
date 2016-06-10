@@ -104,7 +104,12 @@ controller.hears(['walk'], 'direct_message,direct_mention,mention', function(bot
 });
 
 controller.hears(['show team'], 'direct_message,direct_mention,mention', function(bot, message) {
-    getTeam(message);
+    try {
+        getTeam(message);
+    }
+    catch (ex) {
+        bot.reply(message, ex.message);
+    }
 });
 
 controller.hears(['uptime', 'identify yourself', 'who are you', 'what is your name'],
