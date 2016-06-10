@@ -1,10 +1,11 @@
 var Botkit = require('botkit');
 var os = require('os');
+var express = require('express');
 var pokedex = require('./model/pokedex.js');
 var arrayUtils = require('./Utility/arrayUtils.js');
 var dictUtils = require('./Utility/dictUtils.js');
 
-var token = process.env.slackToken;
+var token = process.env.slackToken || "xoxb-48324492166-EVlu0pUX3Uw1LCTMLnLcM4dw";
 
 var controller = Botkit.slackbot({
     debug: true
@@ -177,5 +178,12 @@ function formatUptime(uptime) {
     uptime = uptime + ' ' + unit;
     return uptime;
 }
+
+var app = express();
+
+var port = process.env.port || 3000;
+app.listen(port, function () {
+    console.log('App listening on port ' + port);
+});
 
 
