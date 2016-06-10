@@ -66,7 +66,7 @@ controller.hears(['walk'], 'direct_message,direct_mention,mention', function(bot
                     convo.say("Gotcha! " + wildPokemon.name + " was caught!");
                     convo.next();
                 }
-                catch (ex) { 
+                catch (ex) {
                     convo.say((message == null) + " " + ex.message);
                     convo.next();
                 }
