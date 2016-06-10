@@ -67,7 +67,7 @@ controller.hears(['walk'], 'direct_message,direct_mention,mention', function(bot
                     convo.next();
                 }
                 catch (ex) {
-                    convo.say(ex.message);
+                    convo.say((message == null) + " " + ex.message);
                     convo.next();
                 }
             };
