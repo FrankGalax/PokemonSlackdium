@@ -68,6 +68,9 @@ controller.hears(['walk'], 'direct_message,direct_mention,mention', function(bot
                     var addParams = {
                         id:message.user
                     };
+                    for (var i in team) {
+                        addParams["poke" + (i+1)] = team[i].id;
+                    }
                     addParams["poke" + (team.length+1)] = wildPokemon.id;
                     controller.storage.users.save(addParams, function (err) {
                         if (err) {
