@@ -22,7 +22,7 @@ var addPokemonToTeam = function(message, pokemon) {
 
 var getTeam = function(message) {
     controller.storage.users.get(message.user, function (err, userData) {
-        //bot.reply(message, userData);
+        bot.reply(message, "ok");
     });
 };
 
