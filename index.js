@@ -8,7 +8,7 @@ var dictUtils = require('./Utility/dictUtils.js');
 var token = process.env.slackToken || "xoxb-48324492166-EVlu0pUX3Uw1LCTMLnLcM4dw";
 
 var controller = Botkit.slackbot({
-    debug: true
+    debug: false
 });
 
 var bot = controller.spawn({
