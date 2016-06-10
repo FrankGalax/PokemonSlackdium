@@ -14,6 +14,18 @@ var bot = controller.spawn({
     token: token
 }).startRTM();
 
+var addPokemonToTeam = function(message, pokemon) {
+    controller.storage.users.save({id: message.user, poke1:pokemon.id}, function (err) {
+        bot.reply(message, err);
+    });
+};
+
+var getTeam = function(message) {
+    controller.storage.users.get(message.user, function (err, userData) {
+        bot.reply(message, userData);
+    });
+};
+
 controller.hears(['walk'], 'direct_message,direct_mention,mention', function(bot, message) {
     try {
         var wildPokemon = dictUtils.randomChoice(pokedex.pokemons);
@@ -48,8 +60,9 @@ controller.hears(['walk'], 'direct_message,direct_mention,mention', function(bot
                 convo.next();
             };
 
-            var pokemonCaught = function (r, response, convo) {
-                convo.say("Gotcha! " + wildPokemon.name + " was caught! " + r);
+            var pokemonCaught = function (response, convo) {
+                addPokemonToTeam(wildPokemon);
+                convo.say("Gotcha! " + wildPokemon.name + " was caught!");
                 convo.next();
             };
 
@@ -82,6 +95,10 @@ controller.hears(['walk'], 'direct_message,direct_mention,mention', function(bot
     catch (ex) {
         bot.reply(message, ex.message);
     }
+});
+
+controller.hears(['show team'], 'direct_message,direct_mention,mention', function(bot, message) {
+    getTeam(message);
 });
 
 controller.hears(['uptime', 'identify yourself', 'who are you', 'what is your name'],
