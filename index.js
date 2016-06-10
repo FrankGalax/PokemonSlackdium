@@ -16,7 +16,12 @@ var bot = controller.spawn({
 
 var getTeam = function(message) {
     controller.storage.users.get(message.user, function (err, userData) {
-        bot.reply(message, "ok2");
+        if (userData) {
+            bot.reply(message, JSON.stringify(userData));
+        }
+        else {
+            bot.reply(message, "no data");
+        }
     });
 };
 
@@ -57,7 +62,9 @@ controller.hears(['walk'], 'direct_message,direct_mention,mention', function(bot
             var pokemonCaught = function (response, convo) {
                 try {
                     controller.storage.users.save({id: message.user, poke1:wildPokemon.id}, function (err) {
-                        convo.say("ok1");
+                        if (err) {
+                            convo.say(err);
+                        }
                     });
                     convo.say("Gotcha! " + wildPokemon.name + " was caught!");
                     convo.next();
