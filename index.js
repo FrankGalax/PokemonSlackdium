@@ -17,7 +17,13 @@ var bot = controller.spawn({
 var getTeam = function(message) {
     controller.storage.users.get(message.user, function (err, userData) {
         if (userData) {
-            bot.reply(message, JSON.stringify(userData));
+            var pokemons = [];
+            for (var i = 1 ; i <= 6 ; ++i) {
+                var attr = "poke" + i;
+                if (userData[attr])
+                    pokemons.append(pokedex.pokemons[userData[attr]]);
+            }
+            bot.reply(message, JSON.stringify(pokemons));
         }
         else {
             bot.reply(message, "no data");
