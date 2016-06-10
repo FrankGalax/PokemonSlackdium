@@ -56,7 +56,7 @@ controller.hears(['walk'], 'direct_message,direct_mention,mention', function(bot
 
             var pokemonCaught = function (response, convo) {
                 try {
-                    controller.storage.users.save({id: message.user, poke1:pokemon.id}, function (err) {
+                    controller.storage.users.save({id: message.user, poke1:wildPokemon.id}, function (err) {
                         convo.say("ok1");
                     });
                     convo.say("Gotcha! " + wildPokemon.name + " was caught!");
