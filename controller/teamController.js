@@ -1,4 +1,4 @@
-var pokedex = require('./model/pokedex.js');
+var pokedex = require('../model/pokedex.js');
 
 module.exports = {
     getTeam: function(controller, message) {
