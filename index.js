@@ -5,7 +5,7 @@ var pokedex = require('./model/pokedex.js');
 var arrayUtils = require('./Utility/arrayUtils.js');
 var dictUtils = require('./Utility/dictUtils.js');
 
-var token = process.env.slackToken || "xoxb-48324492166-EVlu0pUX3Uw1LCTMLnLcM4dw";
+var token = process.env.slackToken;
 
 var controller = Botkit.slackbot({
     debug: false
