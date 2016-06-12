@@ -34,7 +34,7 @@ controller.hears(['walk'], 'direct_message,direct_mention,mention', function(bot
     try {
         var team = getTeam(message);
         var allWildPokemons = arrayUtils.where(pokedex.pokemons, function (p) { return p.wild; });
-        var wildPokemond = arrayUtils.randomChoice(allWildPokemons);
+        var wildPokemon = arrayUtils.randomChoice(allWildPokemons);
 
         bot.startConversation(message, function(err, convo) {
 
