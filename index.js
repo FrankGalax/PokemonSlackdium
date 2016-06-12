@@ -23,7 +23,7 @@ var getTeam = function(message) {
             for (var i = 1 ; i <= 6 ; ++i) {
                 var attr = "poke" + i;
                 if (userData[attr])
-                    pokemons.push(pokedex.pokemons[userData[attr]]);
+                    pokemons.push(pokedex.pokemons[userData[attr] - 1]);
             }
         }
     });
