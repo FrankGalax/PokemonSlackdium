@@ -1,6 +1,7 @@
 var Botkit = require('botkit');
 var os = require('os');
 var express = require('express');
+
 var pokedex = require('./model/pokedex.js');
 var arrayUtils = require('./Utility/arrayUtils.js');
 var dictUtils = require('./Utility/dictUtils.js');
@@ -32,7 +33,8 @@ var getTeam = function(message) {
 controller.hears(['walk'], 'direct_message,direct_mention,mention', function(bot, message) {
     try {
         var team = getTeam(message);
-        var wildPokemon = dictUtils.randomChoice(pokedex.pokemons);
+        var allWildPokemons = arrayUtils.where(pokedex.pokemons, function (p) { return p.wild; });
+        var wildPokemond = arrayUtils.randomChoice(allWildPokemons);
 
         bot.startConversation(message, function(err, convo) {
 
